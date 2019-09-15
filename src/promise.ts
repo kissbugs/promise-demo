@@ -21,7 +21,7 @@ class Promise2 {
       this.callbacks.forEach(temp => {
         if (typeof temp[1] !== "function") return;
         temp[1].call(undefined, reason);
-      });
+      }); 
     }, 0);
   }
   constructor(fn) {
