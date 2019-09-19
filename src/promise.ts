@@ -26,15 +26,25 @@ class Promise2 {
   }
   constructor(fn) {
     if (typeof fn !== "function") {
-      throw new Error("不是一个函数");
+      throw new Error("我只接受函数");
     }
     fn(this.resolve.bind(this), this.reject.bind(this));
   }
   then(succeed?, fail?) {
-    let temp = [];
-    temp[0] = succeed;
-    temp[1] = fail;
-    this.callbacks.push(temp);
+    let handle = [];
+    if (typeof succeed === "function") {
+      handle[0] = succeed;
+    }
+    if (typeof fail === "function") {
+      handle[1] = fail;
+    }
+    // 2.2.7
+    handle[2] = new Promise2(() => {});
+
+    // 把函数推到callbacks里面
+    this.callbacks.push(handle);
+
+    return handle[2];
   }
 }
 

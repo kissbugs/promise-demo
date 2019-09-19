@@ -174,4 +174,10 @@ describe("Promise", () => {
       done();
     });
   });
+    it("2.2.7 then必须返回一个promise", () => {
+      const promise = new Promise((resolve, reject) => {
+        resolve()
+      });
+      promise.then(()=>{}, ()=>{})
+    });
 });
